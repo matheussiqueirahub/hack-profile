@@ -27,7 +27,7 @@ body {
   z-index: 1;
   max-width: 960px;
   margin: 0 auto;
-  padding: 20vh 24px 24px;
+  padding: 16vh 24px 24px;
   text-align: center;
 }
 
@@ -40,6 +40,19 @@ h1 {
 }
 
 p { margin: 0 0 20px; opacity: 0.9; }
+.subtitle { max-width: 880px; margin: 0 auto 16px; opacity: .95; }
+
+.skills { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: center; margin: 6px 0 22px; }
+.chip {
+  padding: 6px 10px;
+  border: 1px solid color-mix(in srgb, var(--matrix) 75%, #0a0a0a);
+  color: color-mix(in srgb, var(--matrix) 90%, #001a0c);
+  background: color-mix(in srgb, var(--matrix) 12%, transparent);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .2px;
+}
 
 .actions { display: inline-flex; gap: 12px; }
 
@@ -65,6 +78,5 @@ p { margin: 0 0 20px; opacity: 0.9; }
 }
 
 @media (max-width: 480px) {
-  .overlay { padding-top: 18vh; }
+  .overlay { padding-top: 14vh; }
 }
-
