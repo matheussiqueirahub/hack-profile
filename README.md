@@ -33,3 +33,7 @@
 - Velocidade/efeito: `script.js` (`fontSize` e opacidade do rastro).
 - Título/CTA: `index.html` (seções `<main>` e botões).
 
+### Contato
+- LinkedIn: https://www.linkedin.com/in/siqueira-hub/
+- E‑mail: matheussiqueirahub@gmail.com
+- WhatsApp: https://wa.me/5581999203683
