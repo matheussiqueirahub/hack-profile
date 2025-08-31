@@ -2,51 +2,55 @@
   const canvas = document.getElementById('matrix');
   const ctx = canvas.getContext('2d', { alpha: false });
 
+  const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
   const state = {
-    fontSize: 18,
-    colWidth: 120,
+    fontSize: 20, // leitura melhor p/ palavras
+    colWidth: 140,
     columns: 0,
     drops: [],
     speeds: [],
     w: 0,
     h: 0,
+    baseFade: 0.06,
   };
 
   // Palavras-chave das suas skills para "chover" na tela
+  // Ordem priorizada para dar destaque imediato às áreas-chave
   const keywords = [
-    'Python',
-    'DAX',
-    'JavaScript',
-    'Data Science',
-    'Fullstack',
-    'Analista de Dados',
-    'Ciência da Computação',
-    'Power BI', 'Power B.I.',
+    'Python', 'Power BI', 'BigQuery', 'Data Science',
+    'Analista de Dados', 'JavaScript', 'Fullstack',
+    'Power Query', 'Excel', 'XLS',
     'Looker Studio', 'Lockr Studio',
-    'XLS', 'Excel',
-    'BigQuery', 'Big Query',
-    'Power Query'
+    'DAX', 'Ciência da Computação',
+    // variações para busca/SEO
+    'Power B.I.', 'Big Query'
   ];
 
   function resize() {
-    canvas.width = state.w = window.innerWidth;
-    canvas.height = state.h = window.innerHeight;
-
-    // Ajusta largura de coluna para acomodar palavras
-    state.colWidth = Math.max(100, Math.min(160, Math.floor(state.w / 12)));
-    state.columns = Math.max(6, Math.floor(state.w / state.colWidth));
-
-    // Recria "quedas" e velocidades
-    state.drops = Array.from({ length: state.columns }, () => Math.floor(Math.random() * -50));
-    state.speeds = Array.from({ length: state.columns }, () => 0.6 + Math.random() * 1.2);
+    state.w = window.innerWidth;
+    state.h = window.innerHeight;
+    canvas.width = Math.floor(state.w * dpr);
+    canvas.height = Math.floor(state.h * dpr);
+    canvas.style.width = state.w + 'px';
+    canvas.style.height = state.h + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     // Define fonte para cálculo e desenho
     ctx.font = `600 ${state.fontSize}px Source Code Pro, ui-monospace, monospace`;
+
+    // Calcula a largura ideal de coluna baseada na maior palavra
+    const maxWordWidth = keywords.reduce((m, w) => Math.max(m, ctx.measureText(w).width), 0);
+    state.colWidth = Math.min(220, Math.max(120, Math.ceil(maxWordWidth + 24)));
+    state.columns = Math.max(6, Math.floor(state.w / state.colWidth));
+
+    // Recria "quedas" e velocidades (mais lento para leitura)
+    state.drops = Array.from({ length: state.columns }, () => Math.floor(Math.random() * -50));
+    state.speeds = Array.from({ length: state.columns }, () => 0.5 + Math.random() * 0.9);
   }
 
   function draw() {
-    // desvanecer trilha
-    ctx.fillStyle = 'rgba(0,0,0,0.08)';
+    // desvanecer trilha (fade controlado)
+    ctx.fillStyle = `rgba(0,0,0,${state.baseFade})`;
     ctx.fillRect(0, 0, state.w, state.h);
 
     ctx.fillStyle = '#00ff66';
