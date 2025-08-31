@@ -54,7 +54,7 @@ p { margin: 0 0 20px; opacity: 0.9; }
   letter-spacing: .2px;
 }
 
-.actions { display: inline-flex; gap: 12px; }
+.actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
 
 .btn {
   cursor: pointer;
